@@ -14,7 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   title: Special
   color: {r: 0.12156862, g: 0.83137256, b: 0.13356283, a: 1}
+  damageType: 3
   auto: 0
-  cooldown: 1
+  cooldown: 3
+  damage: 25
   projectile: {fileID: 1590106021389634796, guid: 88516db6067b11e41a29456ebc27822e,
     type: 3}

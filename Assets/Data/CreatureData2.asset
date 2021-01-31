@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: CreatureData2
   m_EditorClassIdentifier: 
   Name: 
-  Icon: {fileID: 0}
+  Icon: {fileID: 21300000, guid: 63677bf309b56d64e8cc7b3cddb6df64, type: 3}
   Color: {r: 0.12156862, g: 0.83137256, b: 0.8187654, a: 1}
   Prefab: {fileID: 1263459133268777559, guid: 368e2eba018b52c46a07814c0f23d5d2, type: 3}
   BasicAttack: {fileID: 11400000, guid: 0845b00444c69a6449276f990e97cef9, type: 2}

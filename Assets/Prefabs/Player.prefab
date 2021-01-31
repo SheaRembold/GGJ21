@@ -96,11 +96,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveSpeed: 10
   startCreatures: []
-  creatureDistance: 1
+  creatureDistance: 1.5
   creatureSeparation: 45
   enemySelectMask:
     serializedVersion: 2
     m_Bits: 16384
+  healRate: 50
 --- !u!114 &1420212786675429293
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -7,6 +7,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 8070511010473293528, guid: 1e8077b90c1abc641b4d2e009ec45e10,
+        type: 3}
+      propertyPath: m_Radius
+      value: 0.2
+      objectReference: {fileID: 0}
     - target: {fileID: 8070511010473293529, guid: 1e8077b90c1abc641b4d2e009ec45e10,
         type: 3}
       propertyPath: m_RootOrder
@@ -71,6 +76,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Layer
       value: 13
+      objectReference: {fileID: 0}
+    - target: {fileID: 8070511010577722829, guid: 1e8077b90c1abc641b4d2e009ec45e10,
+        type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 8070511010577722829, guid: 1e8077b90c1abc641b4d2e009ec45e10,
+        type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.4
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1e8077b90c1abc641b4d2e009ec45e10, type: 3}

@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.EventSystems;
+using UnityEngine.SceneManagement;
 
 public class CreaturePermutation
 {
@@ -29,12 +31,18 @@ public class PlayerController : MonoBehaviour
     float creatureSeparation = 45f;
     [SerializeField]
     LayerMask enemySelectMask;
+    [SerializeField]
+    float healRate = 10f;
+
+    float healing;
 
     public static PlayerController Instance;
     public static event System.Action<CreatureController> OnCreatureAdd;
 
     public EnemyController TargetEnemy { get { return selected; } }
     public List<CreatureController> Creatures { get { return creatures; } }
+    public List<EnemyController> Engaged { get { return engaged; } }
+    public bool InCombat { get { return engaged.Count > 0; } }
 
     Rigidbody2D rigidbody;
     InputActionAsset actions;
@@ -50,6 +58,8 @@ public class PlayerController : MonoBehaviour
     ColliderComparer colliderComparer = new ColliderComparer();
     EnemyController highlighted;
     EnemyController selected;
+
+    List<EnemyController> engaged = new List<EnemyController>();
 
     void Awake()
     {
@@ -134,8 +144,39 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    public void AddEnemy(EnemyController enemy)
+    {
+        if (!engaged.Contains(enemy))
+            engaged.Add(enemy);
+    }
+
+    public void RemoveEnemy(EnemyController enemy)
+    {
+        engaged.Remove(enemy);
+    }
+
     void Update()
     {
+        if (ConversationManager.Instance.IsActive)
+        {
+            return;
+        }
+
+        bool anyAlive = creatures.Count == 0;
+        for (int i = 0; i < creatures.Count; i++)
+        {
+            if (creatures[i].IsAlive)
+            {
+                anyAlive = true;
+                break;
+            }
+        }
+        if (!anyAlive)
+        {
+            SceneManager.LoadScene("Main");
+            return;
+        }
+
         rigidbody.velocity = actions.FindAction("Move").ReadValue<Vector2>() * moveSpeed;
         if (rigidbody.velocity.magnitude > 0)
         {
@@ -161,13 +202,28 @@ public class PlayerController : MonoBehaviour
             if (highlighted != null)
                 highlighted.SetHighlighted(true);
         }
-        if (highlighted != selected && actions.FindAction("Select").triggered)
+        if (highlighted != selected && !EventSystem.current.IsPointerOverGameObject(0) && actions.FindAction("Select").triggered)
         {
             if (selected != null)
                 selected.SetSelected(false);
             selected = highlighted;
             if (selected != null)
                 selected.SetSelected(true);
+        }
+
+        if (!InCombat)
+        {
+            healing += healRate * Time.deltaTime;
+            if (healing >= 1f)
+            {
+                for (int i = 0; i < creatures.Count; i++)
+                    creatures[i].Heal((int)healing);
+                healing -= (int)healing;
+            }
+        }
+        else
+        {
+            healing = 0f;
         }
     }
 
@@ -180,5 +236,17 @@ public class PlayerController : MonoBehaviour
     public Vector2 GetCreaturePosition(CreatureController creature)
     {
         return creaturePositions[creatureIndices[creature]];
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (!InCombat)
+        {
+            IInteractable[] interactables = collision.GetComponents<IInteractable>();
+            for (int i = 0; i < interactables.Length; i++)
+            {
+                interactables[i].Interact();
+            }
+        }
     }
 }

@@ -83,6 +83,26 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 11400000, guid: 1ccb38a59a349d9479ffd105d2fb9d41,
         type: 2}
+    - target: {fileID: 6903517995450761761, guid: 6dedb6ce39b0fd44599e694657bd86a3,
+        type: 3}
+      propertyPath: weaknesses.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6903517995450761761, guid: 6dedb6ce39b0fd44599e694657bd86a3,
+        type: 3}
+      propertyPath: resistances.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6903517995450761761, guid: 6dedb6ce39b0fd44599e694657bd86a3,
+        type: 3}
+      propertyPath: weaknesses.Array.data[0]
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 6903517995450761761, guid: 6dedb6ce39b0fd44599e694657bd86a3,
+        type: 3}
+      propertyPath: resistances.Array.data[0]
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6903517995450761763, guid: 6dedb6ce39b0fd44599e694657bd86a3,
         type: 3}
       propertyPath: m_Name

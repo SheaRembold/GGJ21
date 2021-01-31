@@ -166,7 +166,7 @@ RectTransform:
   m_Children:
   - {fileID: 2906604239536921036}
   m_Father: {fileID: 9096003981315753478}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -242,7 +242,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1988619727449883918}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0.25, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 9096003981315753478}
@@ -295,6 +295,67 @@ Rigidbody2D:
   m_SleepingMode: 0
   m_CollisionDetection: 0
   m_Constraints: 4
+--- !u!1 &2037501138867078769
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 978124047286880715}
+  - component: {fileID: 3017725038958433388}
+  - component: {fileID: 3068872419629286588}
+  m_Layer: 0
+  m_Name: ReviveCollider
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &978124047286880715
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2037501138867078769}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 9096003981315753478}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!58 &3017725038958433388
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2037501138867078769}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0.125}
+  serializedVersion: 2
+  m_Radius: 0.5
+--- !u!114 &3068872419629286588
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2037501138867078769}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d9ba24179105ed64290059048af27987, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  reviveHealth: 10
 --- !u!1 &2977838671583708406
 GameObject:
   m_ObjectHideFlags: 0
@@ -502,6 +563,7 @@ Transform:
   - {fileID: 9096003982798443908}
   - {fileID: 1988619727449883917}
   - {fileID: 6732532967144275394}
+  - {fileID: 978124047286880715}
   - {fileID: 855016466546004862}
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -519,11 +581,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHealth: 100
+  startHealth: 100
   healthBar: {fileID: 4360669840289977710}
+  attackDelay: 1
+  attackDistance: 3
+  hitTarget: {fileID: 1988619727449883917}
+  Data: {fileID: 0}
   minSpeed: 8
   maxSpeed: 10
   maxDistance: 1
-  mainAttack: {fileID: 11400000, guid: 0845b00444c69a6449276f990e97cef9, type: 2}
+  reviveCollider: {fileID: 2037501138867078769}
 --- !u!1 &9096003982798443909
 GameObject:
   m_ObjectHideFlags: 0

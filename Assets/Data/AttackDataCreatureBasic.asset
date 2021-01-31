@@ -16,5 +16,6 @@ MonoBehaviour:
   color: {r: 0.8018868, g: 0.8018868, b: 0.8018868, a: 1}
   auto: 1
   cooldown: 0
+  damage: 8
   projectile: {fileID: 1590106021389634796, guid: e5469fdde14c4e44b95aab91c7ff1ff4,
     type: 3}

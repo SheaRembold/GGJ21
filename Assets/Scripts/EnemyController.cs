@@ -5,13 +5,18 @@ using UnityEngine;
 public class EnemyController : AiController
 {
     [SerializeField]
-    AttackData mainAttack;
+    protected AttackData mainAttack;
     [SerializeField]
-    GameObject highlight;
+    protected GameObject highlight;
     [SerializeField]
-    GameObject select;
+    protected GameObject select;
+    [SerializeField]
+    protected float speed = 10f;
 
-    float lastAttack = float.MinValue;
+    protected float lastAttack = float.MinValue;
+    protected List<EnemyController> party = new List<EnemyController>();
+    protected List<CreatureController> targets = new List<CreatureController>();
+    protected CreatureController lastTarget;
 
     protected override void Awake()
     {
@@ -20,12 +25,44 @@ public class EnemyController : AiController
         select.SetActive(false);
     }
 
-    void Update()
+    protected void FindTargets()
     {
-        if (mainAttack != null && detector.detected.Count > 0 && Time.time - lastAttack >= attackDelay && Time.time - lastAttack >= mainAttack.cooldown)
+        party.Clear();
+        targets.Clear();
+        for (int i = 0; i < detector.detected.Count; i++)
         {
-            Attack(detector.detected[Random.Range(0, detector.detected.Count)].transform, mainAttack);
+            if (detector.detected[i] is EnemyController && detector.detected[i] != this)
+                party.Add(detector.detected[i] as EnemyController);
+            else if (detector.detected[i] is CreatureController)
+                targets.Add(detector.detected[i] as CreatureController);
+        }
+        for (int i = 0; i < party.Count; i++)
+        {
+            if (party[i].lastTarget != null)
+                targets.Add(party[i].lastTarget);
+        }
+    }
+
+    protected virtual void Update()
+    {
+        FindTargets();
+        if (mainAttack != null && targets.Count > 0 && Time.time - lastAttack >= attackDelay && Time.time - lastAttack >= mainAttack.cooldown)
+        {
+            lastTarget = targets[Random.Range(0, targets.Count)];
+            Attack(lastTarget, mainAttack);
             lastAttack = Time.time;
+            PlayerController.Instance.AddEnemy(this);
+        }
+    }
+
+    void FixedUpdate()
+    {
+        if (lastTarget != null && lastTarget.IsAlive)
+        {
+            Vector2 targetPos = lastTarget.transform.position;
+            Vector2 dir = targetPos - (Vector2)transform.position;
+            if (dir.magnitude > attackDistance)
+                transform.position += (Vector3)(dir.normalized * speed * Time.deltaTime);
         }
     }
 
@@ -37,5 +74,11 @@ public class EnemyController : AiController
     public void SetSelected(bool selected)
     {
         select.SetActive(selected);
+    }
+
+    protected override void OnDeath()
+    {
+        base.OnDeath();
+        PlayerController.Instance.RemoveEnemy(this);
     }
 }

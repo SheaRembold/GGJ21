@@ -6,14 +6,14 @@ public class Projectile : MonoBehaviour
 {
     [SerializeField]
     float speed = 20f;
-    [SerializeField]
-    int damage = 10;
 
+    AttackData attack;
     Vector2 dir;
     bool hit;
 
-    public void Launch(Transform target)
+    public void Launch(Transform target, AttackData attack)
     {
+        this.attack = attack;
         dir = target.position - transform.position;
     }
 
@@ -30,7 +30,7 @@ public class Projectile : MonoBehaviour
         AiController controller = collision.GetComponentInParent<AiController>();
         if (controller != null && controller.IsAlive)
         {
-            controller.TakeDamage(damage);
+            controller.TakeDamage(attack.damage, attack.damageType);
             hit = true;
             Destroy(gameObject);
         }
