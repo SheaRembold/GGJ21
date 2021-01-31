@@ -13,13 +13,13 @@ TagManager:
   - UI
   - 
   - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
+  - CreatureHit
+  - CreatureDetect
+  - CreatureProjectile
+  - EnemyHit
+  - EnemyDetect
+  - EnemyProjectile
+  - EnemySelect
   - 
   - 
   - 
@@ -38,6 +38,9 @@ TagManager:
   - 
   - 
   m_SortingLayers:
+  - name: Background
+    uniqueID: 3545801513
+    locked: 0
   - name: Default
     uniqueID: 0
     locked: 0
